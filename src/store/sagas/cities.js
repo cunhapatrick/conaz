@@ -1,43 +1,28 @@
 import { call, put } from 'redux-saga/effects';
+import moment from 'moment';
 import api from '../../services/api';
 
-import { nextCitySuccess, previousCitySuccess } from '../actions/cities';
+import { Creators as CityActions } from '../ducks/cities';
 
-export function* nextCity(action) {
-  let wheatherData;
+moment.locale('pt-br');
+
+export function* addCityWeather(action) {
+  const { cityData } = action.payload;
+  const [lat, lon] = cityData.coords;
   try {
-    wheatherData = yield call(api.get, '/current?lat=-27.593500&lon=-48.558540');
+    const { data } = yield call(api.get, `/current?lat=${lat}&lon=${lon}`);
+    return yield put(
+      CityActions.addCitySuccess({
+        temp: data.main.temp,
+        temp_min: data.main.temp_min,
+        temp_max: data.main.temp_max,
+        humidity: data.main.humidity,
+        name: data.name,
+        datetime: moment().format('ddd, DD de MMM de YYYY'),
+      }),
+    );
   } catch (err) {
-    yield put(nextCitySuccess({ status: err.response.status }));
+    yield put(CityActions.addCityFailure('Error ao se comunicar com a api'));
     return false;
   }
-
-  const response = {
-    ...wheatherData.data,
-    status: 200,
-  };
-
-  return yield put(nextCitySuccess(response));
-}
-
-export function* previousCity(action) {
-  const { cityData } = action.payload;
-  if (!cityData.data.main) {
-    const [lat, lon] = cityData.coords;
-    let wheatherData;
-    try {
-      wheatherData = yield call(api.get, `/current?lat=${lat}&lon=${lon}`);
-    } catch (err) {
-      yield put(previousCitySuccess({ status: err.response.status }));
-      return false;
-    }
-
-    const response = {
-      ...wheatherData.data,
-      status: 200,
-    };
-
-    return yield put(previousCitySuccess(response));
-  }
-  return yield put(previousCitySuccess({ ...cityData, status: 200 }));
 }
