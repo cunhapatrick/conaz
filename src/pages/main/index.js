@@ -32,7 +32,7 @@ class Main extends Component {
     const { cursor, cities } = this.state;
     if (cursor < 2 && cursor >= 0) {
       this.setState({ cursor: cursor + 1 }, () => {
-        if (cities[this.state.cursor].data.name) {
+        if (!cities[this.state.cursor].data.name) {
           this.props.addCityRequest(cities[this.state.cursor]);
         }
       });
