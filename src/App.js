@@ -2,14 +2,14 @@ import React from 'react';
 import { Provider } from 'react-redux';
 
 import './config/reactotron';
-import './styles/globals';
+import 'react-bulma-components/dist/react-bulma-components.min.css';
 import store from './store';
 // import Routes from "./routes";
 
-import Main from './pages/main';
+import Routes from './routes';
 
 export default () => (
   <Provider store={store}>
-    <Main />
+    <Routes />
   </Provider>
 );

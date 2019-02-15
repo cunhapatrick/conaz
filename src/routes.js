@@ -1,12 +1,12 @@
 import React from 'react';
-import { BrowseRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Main from './pages/main';
 
 export default () => (
-  <BrowseRouter>
+  <BrowserRouter>
     <Switch>
       <Route exact path="/" context={Main} />
     </Switch>
-  </BrowseRouter>
+  </BrowserRouter>
 );
