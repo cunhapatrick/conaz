@@ -1,9 +1,10 @@
-import React, { Component } from "react";
+import React, { Fragment } from 'react';
+import { Heading } from 'react-bulma-components/full';
+import PropTypes from 'prop-types';
 
-// import { Container } from './styles';
-
-export default class Header extends Component {
-  render() {
-    return <div />;
-  }
-}
+export default props => (
+  <Fragment>
+    <Heading>{props.name}</Heading>
+    <Heading>{props.datetime}</Heading>
+  </Fragment>
+);

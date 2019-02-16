@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import './config/reactotron';
 import 'react-bulma-components/dist/react-bulma-components.min.css';
 import store from './store';
-// import Routes from "./routes";
 
 import Routes from './routes';
 

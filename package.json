@@ -35,10 +35,11 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "enzyme": "^3.8.0",
+    "enzyme-adapter-react-16": "^1.9.1",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-react": "^7.12.4",
-    "puppeteer": "^1.12.2"
+    "eslint-plugin-react": "^7.12.4"
   }
 }

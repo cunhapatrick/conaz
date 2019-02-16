@@ -19,3 +19,5 @@ Execute `$ yarn test`
 tratar as requisições para a api
 :heavy_check_mark: Utilização do eslint para melhoria da qualidade do código
 seguindo os padrões de estilo airbnb
+:heavy_check_mark: Testes unitários, de integração e end to end usando a biblioteca
+integrada do create-react-app e o enzyme para testes de componentes

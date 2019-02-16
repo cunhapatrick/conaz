@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Container } from 'react-bulma-components';
+import {
+  Container, Loader, Columns, Box,
+} from 'react-bulma-components/full';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
