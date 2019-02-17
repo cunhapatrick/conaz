@@ -40,12 +40,12 @@ class Main extends Component {
         lon: -48.55854,
       },
       {
-        lat: -27.5935,
-        lon: -48.55854,
+        lat: -1.45502,
+        lon: -48.5024,
       },
       {
-        lat: -27.5935,
-        lon: -48.55854,
+        lat: -23.533773,
+        lon: -46.62529,
       },
     ],
     cursor: 0,
@@ -69,7 +69,7 @@ class Main extends Component {
 
   handlePreviousCity = () => {
     const { cursor } = this.state;
-    if (cursor >= 3 && cursor < 0) {
+    if (cursor >= 0 && cursor < 3) {
       this.setState({ cursor: cursor - 1 });
     }
   };
@@ -78,35 +78,46 @@ class Main extends Component {
     const { cursor } = this.state;
     const { data, loading } = this.props.cities;
 
-    return loading ? (
-      <Loader />
-    ) : (
-      <Box>
-        <Header name={data[cursor].name} datetime={data[cursor].datetime} />
-        <Body temp={data[cursor].temp} />
-        <Footer
-          tempMax={data[cursor].tempMax}
-          tempMin={data[cursor].tempMin}
-          humidity={data[cursor].humidity}
-        />
-      </Box>
-    );
+    if (loading) {
+      return <Loader />;
+    }
+
+    if (data[cursor]) {
+      return (
+        <Box>
+          <Header name={data[cursor].name} datetime={data[cursor].datetime} />
+          <Body temp={data[cursor].temp} />
+          <Footer
+            tempMax={data[cursor].tempMax}
+            tempMin={data[cursor].tempMin}
+            humidity={data[cursor].humidity}
+          />
+        </Box>
+      );
+    }
+
+    return '';
   };
 
   handleButton = (value) => {
     const { cursor } = this.state;
     if (cursor === 0 && value === 'Próximo') {
-      return <Button value={value} onclick={this.handleNextCity} />;
+      return <Button value={value} index={1} onclick={this.handleNextCity.bind(this)} />;
     }
 
     if (cursor === 2 && value === 'Anterior') {
-      return <Button value={value} onclick={this.handlePreviousCity} />;
+      return <Button value={value} index={0} onclick={this.handlePreviousCity.bind(this)} />;
     }
     if (cursor === 1) {
       return (
         <Button
           value={value}
-          onclick={value === 'Anterior' ? this.handlePreviousCity : this.handleNextCity}
+          index={value === 'Anterior' ? 0 : 1}
+          onclick={
+            value === 'Anterior'
+              ? this.handlePreviousCity.bind(this)
+              : this.handleNextCity.bind(this)
+          }
         />
       );
     }

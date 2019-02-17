@@ -4,8 +4,8 @@ import './styles.css';
 
 import PropTypes from 'prop-types';
 
-const Button = ({ value, onclick }) => (
-  <BulmaButton className="nav-button" onClick={onclick} color="danger">
+const Button = ({ index, value, onclick }) => (
+  <BulmaButton index={index} className="nav-button" onClick={onclick} color="danger">
     {value}
   </BulmaButton>
 );
@@ -13,6 +13,7 @@ const Button = ({ value, onclick }) => (
 Button.propTypes = {
   value: PropTypes.string,
   onclick: PropTypes.func,
+  index: PropTypes.number,
 };
 
 export default Button;

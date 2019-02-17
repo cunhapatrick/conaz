@@ -2,3 +2,7 @@
   margin-top: 50%;
   margin-bottom: auto;
 }
+
+.nav-button[index="0"] {
+  margin-left: 77.5%;
+}

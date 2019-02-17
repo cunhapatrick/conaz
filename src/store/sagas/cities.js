@@ -14,16 +14,17 @@ export function* addCityWeather(action) {
     const { data } = yield call(api.get, `/current?lat=${lat}&lon=${lon}`);
     const datetime = `${now.format('dddd, DD ')}
     de ${now.format('MMMM')} de ${now.format('YYYY')}`;
-    return yield put(
-      CityActions.addCitySuccess({
-        temp: Math.round(data.main.temp),
-        tempMin: Math.round(data.main.temp_min),
-        tempMax: Math.round(data.main.temp_max),
-        humidity: Math.round(data.main.humidity),
-        name: data.name,
-        datetime,
-      }),
-    );
+
+    const res = {
+      temp: Math.round(data.main.temp),
+      tempMin: Math.round(data.main.temp_min),
+      tempMax: Math.round(data.main.temp_max),
+      humidity: Math.round(data.main.humidity),
+      name: data.name,
+      datetime,
+    };
+
+    return yield put(CityActions.addCitySuccess(res));
   } catch (err) {
     yield put(CityActions.addCityFailure('Error ao se comunicar com a api'));
     return false;
