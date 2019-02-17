@@ -1,7 +1,7 @@
 # Instruções para inicio do projeto
 
 Execute `$ yarn`
-Execute `$ yarn build`
+Execute `$ yarn start`
 
 # Intruções de Execução das rotinas de Teste
 
