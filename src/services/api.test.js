@@ -1,4 +1,4 @@
-import api from './services/api';
+import api from './api';
 
 jest.setTimeout(30000);
 
