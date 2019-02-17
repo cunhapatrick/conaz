@@ -8,7 +8,7 @@ body {
 }
 
 .middle {
-  width: 33%;
+  width: 35%;
 }
 
 .main-container {
@@ -16,5 +16,14 @@ body {
 }
 
 .main-row {
-  padding-top: 10%;
+  padding-top: 7.5%;
+}
+
+.loader {
+  width: 350px;
+  height: 350px;
+  border: 6px solid pink;
+  border-top-color: transparent;
+  border-right-color: transparent;
+  position: absolute;
 }

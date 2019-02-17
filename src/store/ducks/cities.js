@@ -26,7 +26,7 @@ export default function cities(state = INITIAL_STATE, action) {
       return {
         ...state,
         loading: false,
-        error: null,
+        error: 0,
         data: [...state.data, action.payload.data],
       };
 

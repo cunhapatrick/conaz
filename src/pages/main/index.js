@@ -29,7 +29,7 @@ class Main extends Component {
           datetime: PropTypes.string,
         }),
       ),
-      error: PropTypes.oneOfType([null, PropTypes.string]),
+      error: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     }),
   };
 

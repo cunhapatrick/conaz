@@ -32,9 +32,9 @@ const Footer = ({ tempMax, tempMin, humidity }) => (
 );
 
 Footer.propTypes = {
-  tempMax: PropTypes.string,
-  tempMin: PropTypes.string,
-  humidity: PropTypes.string,
+  tempMax: PropTypes.number,
+  tempMin: PropTypes.number,
+  humidity: PropTypes.number,
 };
 
 export default Footer;
