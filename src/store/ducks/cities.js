@@ -13,7 +13,7 @@ export const Types = {
  */
 
 const INITIAL_STATE = {
-  loading: false,
+  loading: true,
   data: [],
 };
 

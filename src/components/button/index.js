@@ -1,7 +1,18 @@
 import React from 'react';
-import { Button } from 'react-bulma-components/full';
-// import { Container } from './styles';
+import { Button as BulmaButton } from 'react-bulma-components/full';
+import './styles.css';
 
-const button = props => <Button color="danger">{props.value}</Button>;
+import PropTypes from 'prop-types';
 
-export default button;
+const Button = ({ value, onclick }) => (
+  <BulmaButton className="nav-button" onClick={onclick} color="danger">
+    {value}
+  </BulmaButton>
+);
+
+Button.propTypes = {
+  value: PropTypes.string,
+  onclick: PropTypes.func,
+};
+
+export default Button;

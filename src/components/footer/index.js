@@ -1,22 +1,40 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Container, Columns, Heading } from 'react-bulma-components/full';
+import './styles.css';
 
-export default props => (
-  <Container>
+const Footer = ({ tempMax, tempMin, humidity }) => (
+  <Container className="footer-container">
     <Columns>
       <Columns.Column>
-        <Heading>{props.temp_max}</Heading>
-        <Heading>Max</Heading>
+        <Heading size={4}>{`${tempMax}º`}</Heading>
+        <Heading subtitle size={5}>
+          {'Max'}
+        </Heading>
       </Columns.Column>
       <Columns.Column>
-        <Heading>{props.temp_min}</Heading>
-        <Heading>Min</Heading>
+        <Heading size={4}>{`${tempMin}º`}</Heading>
+        <Heading subtitle size={5}>
+          {'Min'}
+        </Heading>
       </Columns.Column>
       <Columns.Column>
-        <Heading>{props.humidity}</Heading>
-        <Heading>Umidade</Heading>
+        <Heading className="humidity-temp" size={4}>
+          {humidity}
+        </Heading>
+        <Heading subtitle size={5}>
+          {'Umidade'}
+        </Heading>
       </Columns.Column>
     </Columns>
   </Container>
 );
+
+Footer.propTypes = {
+  tempMax: PropTypes.string,
+  tempMin: PropTypes.string,
+  humidity: PropTypes.string,
+};
+
+export default Footer;

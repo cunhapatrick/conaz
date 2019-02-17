@@ -1,0 +1,11 @@
+.footer-container {
+  justify-content: center;
+  width: auto;
+  margin-bottom: 25px;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.humidity-temp {
+  padding-left: 25px;
+}

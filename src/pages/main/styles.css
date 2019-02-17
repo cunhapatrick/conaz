@@ -1,0 +1,20 @@
+body {
+  font-family: "Roboto";
+  background-color: lightgrey;
+}
+
+.subtitle {
+  color: #949596;
+}
+
+.middle {
+  width: 33%;
+}
+
+.main-container {
+  height: 600px;
+}
+
+.main-row {
+  padding-top: 10%;
+}

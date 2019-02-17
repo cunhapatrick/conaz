@@ -6,7 +6,7 @@ import Main from './pages/main';
 export default () => (
   <BrowserRouter>
     <Switch>
-      <Route exact path="/" context={Main} />
+      <Route exact path="/" component={Main} />
     </Switch>
   </BrowserRouter>
 );

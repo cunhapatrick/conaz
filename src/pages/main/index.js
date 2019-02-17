@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {
   Container, Loader, Columns, Box,
 } from 'react-bulma-components/full';
+import './styles.css';
+
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -9,33 +11,57 @@ import { bindActionCreators } from 'redux';
 import Header from '../../components/header';
 import Body from '../../components/body';
 import Footer from '../../components/footer';
+import Button from '../../components/button';
 import { Creators as CityActions } from '../../store/ducks/cities';
-
-// import { Container } from './styles';
 
 class Main extends Component {
   static propTypes = {
     addCityRequest: PropTypes.func.isRequired,
-    // loading: PropTypes.bool,
-    // error: PropTypes.oneOfType([null, PropTypes.string]),
+    cities: PropTypes.shape({
+      loading: PropTypes.bool,
+      data: PropTypes.arrayOf(
+        PropTypes.shape({
+          temp: PropTypes.number,
+          humidity: PropTypes.number,
+          tempMin: PropTypes.number,
+          tempMax: PropTypes.number,
+          name: PropTypes.string,
+          datetime: PropTypes.string,
+        }),
+      ),
+      error: PropTypes.oneOfType([null, PropTypes.string]),
+    }),
   };
 
   state = {
-    cities: [
+    coords: [
       {
-        coords: [-27.5935, -48.55854],
-        data: {},
+        lat: -27.5935,
+        lon: -48.55854,
+      },
+      {
+        lat: -27.5935,
+        lon: -48.55854,
+      },
+      {
+        lat: -27.5935,
+        lon: -48.55854,
       },
     ],
     cursor: 0,
   };
 
+  componentDidMount() {
+    const { coords } = this.state;
+    this.props.addCityRequest(coords[0]);
+  }
+
   handleNextCity = () => {
-    const { cursor, cities } = this.state;
-    if (cursor < 2 && cursor >= 0) {
+    const { cursor, coords } = this.state;
+    if (cursor < 3 && cursor >= 0) {
       this.setState({ cursor: cursor + 1 }, () => {
-        if (!cities[this.state.cursor].data.name) {
-          this.props.addCityRequest(cities[this.state.cursor]);
+        if (!this.props.cities.data[this.state.cursor]) {
+          this.props.addCityRequest(coords[this.state.cursor]);
         }
       });
     }
@@ -43,18 +69,59 @@ class Main extends Component {
 
   handlePreviousCity = () => {
     const { cursor } = this.state;
-    if (cursor >= 2 && cursor < 0) {
+    if (cursor >= 3 && cursor < 0) {
       this.setState({ cursor: cursor - 1 });
     }
   };
 
+  handleLoading = () => {
+    const { cursor } = this.state;
+    const { data, loading } = this.props.cities;
+
+    return loading ? (
+      <Loader />
+    ) : (
+      <Box>
+        <Header name={data[cursor].name} datetime={data[cursor].datetime} />
+        <Body temp={data[cursor].temp} />
+        <Footer
+          tempMax={data[cursor].tempMax}
+          tempMin={data[cursor].tempMin}
+          humidity={data[cursor].humidity}
+        />
+      </Box>
+    );
+  };
+
+  handleButton = (value) => {
+    const { cursor } = this.state;
+    if (cursor === 0 && value === 'Próximo') {
+      return <Button value={value} onclick={this.handleNextCity} />;
+    }
+
+    if (cursor === 2 && value === 'Anterior') {
+      return <Button value={value} onclick={this.handlePreviousCity} />;
+    }
+    if (cursor === 1) {
+      return (
+        <Button
+          value={value}
+          onclick={value === 'Anterior' ? this.handlePreviousCity : this.handleNextCity}
+        />
+      );
+    }
+
+    return false;
+  };
+
   render() {
-    const { data } = this.state.cities[this.state.cursor];
     return (
-      <Container>
-        <Header name={data.name} datetime={data.datetime} />
-        <Body temp={data.temp} />
-        <Footer temp_max={data.temp_max} temp_min={data.temp_min} humidity={data.humidity} />
+      <Container className="main-container">
+        <Columns className="main-row">
+          <Columns.Column>{this.handleButton('Anterior')}</Columns.Column>
+          <Columns.Column className="middle">{this.handleLoading()}</Columns.Column>
+          <Columns.Column>{this.handleButton('Próximo')}</Columns.Column>
+        </Columns>
       </Container>
     );
   }

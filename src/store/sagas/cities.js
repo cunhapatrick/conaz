@@ -1,24 +1,27 @@
 import { call, put } from 'redux-saga/effects';
+import 'moment/locale/pt-br';
 import moment from 'moment';
 import api from '../../services/api';
 
 import { Creators as CityActions } from '../ducks/cities';
 
-moment.locale('pt-br');
-
 export function* addCityWeather(action) {
   const { cityData } = action.payload;
-  const [lat, lon] = cityData.coords;
+  const { lat, lon } = cityData;
   try {
+    const now = moment();
+    now.locale('pt-br');
     const { data } = yield call(api.get, `/current?lat=${lat}&lon=${lon}`);
+    const datetime = `${now.format('dddd, DD ')}
+    de ${now.format('MMMM')} de ${now.format('YYYY')}`;
     return yield put(
       CityActions.addCitySuccess({
-        temp: data.main.temp,
-        temp_min: data.main.temp_min,
-        temp_max: data.main.temp_max,
-        humidity: data.main.humidity,
+        temp: Math.round(data.main.temp),
+        tempMin: Math.round(data.main.temp_min),
+        tempMax: Math.round(data.main.temp_max),
+        humidity: Math.round(data.main.humidity),
         name: data.name,
-        datetime: moment().format('ddd, DD de MMM de YYYY'),
+        datetime,
       }),
     );
   } catch (err) {
